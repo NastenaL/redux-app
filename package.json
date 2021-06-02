@@ -1,0 +1,19 @@
+{
+  "name": "redux-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --outfile=dist/bundle.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.12.5",
+    "redux": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/redux": "^3.6.0",
+    "typescript": "^4.3.2"
+  }
+}
