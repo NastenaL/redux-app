@@ -1,13 +1,17 @@
-import { HelloActions } from '../actions/hello.actions';
+import { DeleteActions } from "../actions/delete.actions";
+import { HelloActions } from "../actions/hello.actions";
 
 const initialState = {
-  text: 'Hello World',
+  text: "Hello World",
 };
 
 function helloReducer(state = initialState, action) {
   switch (action.type) {
     case HelloActions.updateText.type: {
       return { ...state, text: `Hello World ${new Date().toJSON()}` };
+    }
+    case DeleteActions.deleteText.type: {
+      return { ...state, text: `There is no title` };
     }
     default: {
       return state;

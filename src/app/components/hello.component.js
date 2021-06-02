@@ -1,5 +1,6 @@
-import { HelloActions } from '../store/actions/hello.actions';
-import { HelloSelectors } from '../store/selectors/hello.selectors';
+import { HelloActions } from "../store/actions/hello.actions";
+import { DeleteActions } from "../store/actions/delete.actions";
+import { HelloSelectors } from "../store/selectors/hello.selectors";
 
 export class HelloComponent {
   #store = null;
@@ -9,18 +10,29 @@ export class HelloComponent {
   }
 
   renderHeader() {
-    const helloHeader = document.createElement('h1');
+    const helloHeader = document.createElement("h1");
 
     helloHeader.textContent = HelloSelectors.selectText(this.#store.getState());
 
     return helloHeader;
   }
 
-  renderButton() {
-    const button = document.createElement('button');
+  renderDeleteButton() {
+    const button = document.createElement("button");
 
-    button.innerText = 'Update Title';
-    button.addEventListener('click', () => {
+    button.innerText = "Delete";
+    button.addEventListener("click", () => {
+      this.#store.dispatch(DeleteActions.deleteText);
+    });
+
+    return button;
+  }
+
+  renderButton() {
+    const button = document.createElement("button");
+
+    button.innerText = "Update Title";
+    button.addEventListener("click", () => {
       this.#store.dispatch(HelloActions.updateText);
     });
 
@@ -31,9 +43,11 @@ export class HelloComponent {
     const fragment = document.createDocumentFragment();
     const header = this.renderHeader();
     const button = this.renderButton();
+    const deleteButton = this.renderDeleteButton();
 
     fragment.appendChild(header);
     fragment.appendChild(button);
+    fragment.appendChild(deleteButton);
 
     return fragment;
   }
