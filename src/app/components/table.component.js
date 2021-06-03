@@ -3,42 +3,42 @@ import { TableActions } from "../store/actions/table.actions";
 export class TableComponent {
   #store = null;
 
-  constructor(store) {
+  constructor(store, items) {
     this.#store = store;
+    this.items = items;
   }
 
   renderTable() {
-    var tbl = document.createElement("table");
+    let tbl = document.createElement("table");
     tbl.id = "mainTable";
     tbl.style.width = "100%";
     tbl.setAttribute("border", "1");
-    var tbdy = document.createElement("tbody");
-    for (var i = 0; i < 3; i++) {
-      var tr = document.createElement("tr");
-      for (var j = 0; j < 2; j++) {
-        if (i == 2 && j == 1) {
-          break;
-        } else {
-          var td = document.createElement("td");
-          td.appendChild(document.createTextNode("\u0020"));
-          i == 1 && j == 1 ? td.setAttribute("rowSpan", "2") : null;
-          tr.appendChild(td);
-        }
-      }
-      tbdy.appendChild(tr);
-    }
+    let tbdy = document.createElement("tbody");
 
-    tbl.appendChild(tbdy);
+    this.items.forEach((item) => {
+      let row = this.createRow(item);
+      tbl.appendChild(row);
+    });
 
     return tbl;
   }
+
+  createRow(item) {
+    let row = document.createElement("tr");
+    let cell = document.createElement("td");
+    let textNode = document.createTextNode(item);
+    cell.appendChild(textNode);
+    row.appendChild(cell);
+    
+    return row;
+  };
 
   renderHideButton() {
     const button = document.createElement("button");
 
     button.innerText = "Hide";
     button.addEventListener("click", () => {
-      document.getElementById("mainTable").style.display = "none";
+      document.getElementById("mainTable").setAttribute("display", "none");
       console.log(document.getElementById("mainTable"));
       this.#store.dispatch(TableActions.hideTable);
     });
@@ -51,7 +51,7 @@ export class TableComponent {
 
     button.innerText = "Show";
     button.addEventListener("click", () => {
-      document.getElementById("mainTable").style.display = "table";
+      document.getElementById("mainTable").setAttribute("display", "table");
       console.log(document.getElementById("mainTable"));
       this.#store.dispatch(TableActions.showTable);
     });
