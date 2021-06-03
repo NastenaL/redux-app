@@ -1,5 +1,4 @@
 import { HelloActions } from "../store/actions/hello.actions";
-import { DeleteActions } from "../store/actions/delete.actions";
 import { HelloSelectors } from "../store/selectors/hello.selectors";
 
 export class HelloComponent {
@@ -22,7 +21,7 @@ export class HelloComponent {
 
     button.innerText = "Delete";
     button.addEventListener("click", () => {
-      this.#store.dispatch(DeleteActions.deleteText);
+      this.#store.dispatch(HelloActions.deleteText);
     });
 
     return button;
